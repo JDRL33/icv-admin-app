@@ -1,53 +1,59 @@
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
+import TopBar from "../../components/topbar";
 import { useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
-import CardAnuncio from "../../components/cardAnuncio";
+import { View, Button, Platform, Text } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 function User() {
-  const [ads, setAds] = useState([
-    {
-      id: 2,
-      name: "fgergerg",
-      description: "drhrtjrtyjryjehrethrethjurtj",
-      day: "hodgfeerges",
-      hours: "thsthe",
-    },
-    {
-      id: 1,
-      name: "fgergerg",
-      description: "drhrtjrtyjryjehrethrethjurtj",
-      day: "hodgfeerges",
-      hours: "thsthe",
-    },
-    {
-      id: 3,
-      name: "fgergerg",
-      description: "drhrtjrtyjryjehrethrethjurtj",
-      day: "hodgfeerges",
-      hours: "thsthe",
-    },
-  ]);
-  return (
-    <View style={{ flex: 1 }}>
-      {/* {ads.map((anuncio) => { */}
-      <FlatList
-        data={ads}
-        keyExtractor={(item) => item.id}
-        renderItem={(item) => (
-          <CardAnuncio
-            key={item.item.id}
-            name={item.item.name}
-            day={item.item.day}
-            description={item.item.description}
-            hours={item.item.hours}
-          />
-        )}
-      />
+  const insets = useSafeAreaInsets();
+  const [time, setTime] = useState(new Date());
+  const [show, setShow] = useState(false);
 
-      {/* })} */}
-    </View>
+  const onChange = (event, selectedTime) => {
+    setShow(false);
+    if (selectedTime) {
+      setTime(selectedTime);
+    }
+  };
+
+  const showTimepicker = () => {
+    setShow(true);
+  };
+
+  return (
+    <SafeAreaProvider>
+      <View style={{ paddingTop: insets.top }}>
+        <View style={{}}>
+          <TopBar title={"Columna de la Verdad"} subtitle={"Usuario"} />
+        </View>
+        <View style={{ padding: 20 }}>
+          <Button onPress={showTimepicker} title="Seleccionar hora" />
+
+          <Text style={{ marginTop: 10 }}>
+            Hora seleccionada:{" "}
+            {time.toLocaleTimeString("en-US", {
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: true,
+            })}
+          </Text>
+
+          {show && (
+            <DateTimePicker
+              value={time}
+              mode="time"
+              display={Platform.OS === "ios" ? "spinner" : "default"}
+              onChange={onChange}
+              is24Hour={false} // Esto fuerza el formato de 12 horas
+            />
+          )}
+        </View>
+      </View>
+    </SafeAreaProvider>
   );
 }
 
 export default User;
-
-const styles = StyleSheet.create({});

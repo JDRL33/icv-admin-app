@@ -1,25 +1,86 @@
 import { StyleSheet, View } from "react-native";
-import { Card, Text } from "react-native-paper";
+import { IconButton, Card, Text, MD3Colors } from "react-native-paper";
 
-function CardAnuncio({ props, name, description, day, hours }) {
+function CardAnuncio({
+  props,
+  id,
+  name,
+  description,
+  day,
+  hours,
+  edit = false,
+  showDialogDelete,
+  showDialogUpdate,
+}) {
   return (
-    <View style={styles.card_outline} {...props}>
-      <Card style={{ height: 400 }}>
-        <Card.Cover source={{ uri: "https://picsum.photos/700" }} />
-        <Card.Content>
-          <Text style={styles.card_title} variant="titleLarge">
-            {name}
-          </Text>
-          <View style={styles.card_subtitle}>
-            <Text style={{ fontWeight: "bold" }} variant="titleMedium">
-              {day}
-            </Text>
-            <Text variant="titleMedium">{hours}</Text>
-          </View>
-          <Text variant="bodyMedium">{description.slice(0, 100)}</Text>
-        </Card.Content>
-      </Card>
-    </View>
+    <>
+      {!edit && (
+        <View style={styles.card_outline} {...props}>
+          <Card style={{ height: 400 }}>
+            <Card.Cover source={{ uri: "https://picsum.photos/700" }} />
+            <Card.Content>
+              <Text style={styles.card_title} variant="titleLarge">
+                {name}
+              </Text>
+              <View style={styles.card_subtitle}>
+                <Text style={{ fontWeight: "bold" }} variant="titleMedium">
+                  {day}
+                </Text>
+                <Text variant="titleMedium">{hours}</Text>
+              </View>
+              <Text variant="bodyMedium">{description.slice(0, 250)}</Text>
+            </Card.Content>
+          </Card>
+        </View>
+      )}
+      {edit && (
+        <View style={styles.card_outline} {...props}>
+          <Card style={{ height: 400 }}>
+            <Card.Cover source={{ uri: "https://picsum.photos/700" }} />
+            <Card.Content>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={styles.card_title} variant="titleLarge">
+                  {name}
+                </Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                  }}
+                >
+                  <IconButton
+                    icon="circle-edit-outline"
+                    iconColor={MD3Colors.primary20}
+                    size={20}
+                    onPress={() => {
+                      showDialogUpdate(id);
+                    }}
+                  />
+                  <IconButton
+                    icon="delete-empty-outline"
+                    iconColor={"red"}
+                    size={20}
+                    onPress={() => showDialogDelete()}
+                  />
+                </View>
+              </View>
+              <View style={styles.card_subtitle}>
+                <Text style={{ fontWeight: "bold" }} variant="titleMedium">
+                  {day}
+                </Text>
+                <Text variant="titleMedium">{hours}</Text>
+              </View>
+              <Text variant="bodyMedium">{description.slice(0, 250)}</Text>
+            </Card.Content>
+          </Card>
+        </View>
+      )}
+    </>
   );
 }
 

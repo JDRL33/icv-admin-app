@@ -10,6 +10,7 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
+import { PaperProvider } from "react-native-paper";
 
 export default function Index() {
   const insets = useSafeAreaInsets();
@@ -18,26 +19,28 @@ export default function Index() {
 
   return (
     <SafeAreaProvider>
-      <StatusBar style="auto" />
-      <View
-        style={{
-          flex: 1,
-          paddingTop: insets.top,
-        }}
-      >
-        <TopBar title="Columna de la Verdad" subtitle="Inicio" />
-        <ScrollView>
-          <View>
-            <AnunciosList />
-            <View style={{ paddingHorizontal: 20 }}>
-              <CardVision />
-              <CardMision />
-              <CardValoresPersonales />
-              <CardValoresDoctrinales />
+      <PaperProvider>
+        <StatusBar style="auto" />
+        <View
+          style={{
+            flex: 1,
+            paddingTop: insets.top,
+          }}
+        >
+          <TopBar title="Columna de la Verdad" subtitle="Inicio" />
+          <ScrollView>
+            <View>
+              <AnunciosList />
+              <View style={{ paddingHorizontal: 20 }}>
+                <CardVision />
+                <CardMision />
+                <CardValoresPersonales />
+                <CardValoresDoctrinales />
+              </View>
             </View>
-          </View>
-        </ScrollView>
-      </View>
+          </ScrollView>
+        </View>
+      </PaperProvider>
     </SafeAreaProvider>
   );
 }

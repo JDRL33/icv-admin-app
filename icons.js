@@ -10,3 +10,7 @@ export const SettingIcon = (props) => {
 export const UserIcon = (props) => {
   return <FontAwesome name="user-o" size={24} color="black" {...props} />;
 };
+
+export const EditIcon = (props) => {
+  return <Feather name="edit" size={24} color="black" {...props} />;
+};

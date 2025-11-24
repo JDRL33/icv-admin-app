@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { HomeIcon, SettingIcon, UserIcon } from "../../icons";
+import { HomeIcon, EditIcon, UserIcon } from "../../icons";
 
 const TabsLayout = () => {
   return (
@@ -16,10 +16,10 @@ const TabsLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="settings"
+        name="edit"
         options={{
-          title: "Ajustes",
-          tabBarIcon: ({ color }) => <SettingIcon color={color} />,
+          title: "Editar",
+          tabBarIcon: ({ color }) => <EditIcon color={color} />,
         }}
       />
       <Tabs.Screen
